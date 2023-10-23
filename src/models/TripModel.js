@@ -225,25 +225,7 @@ const listforclient = async (
       wide_load_shipping_edit,
     ]
 
-    const consulta = `SELECT trip.id,truck_id,trip.transport_id,driver_id,country_origin,country_destiny,city_origin,city_destiny,trip_date_ini,time_ini,time_end,trip_date_end,type_load_trip,cubic_meters_trip,max_weight_trip, long_load_trip,wide_load_trip,high_load_trip,trip.status,truck.name AS truck_name,country_patent,patent,maken,model,color,driver.name AS driver_name,last_name  AS driver_last_name,phone,dni,img from trip INNER JOIN  truck ON trip.truck_id = truck.id INNER JOIN driver ON trip.driver_id = driver.id 
-    WHERE trip.deleted_at=false AND ${
-      type_load_shipping == '' ? `type_load_trip <> $1` : 'type_load_trip=$1'
-    } AND ${city_origin == '' ? `city_origin <>$2` : 'city_origin=$2'}
-    AND ${city_destiny == '' ? `city_destiny <>$3` : 'city_destiny=$3'}
-    AND ${country_destiny == '' ? `country_destiny <>$4` : 'country_destiny=$4'}
-    AND ${country_origin == '' ? `country_origin <>$5` : 'country_origin=$5'}
-    AND cubic_meters_trip>=$6 
-    AND high_load_trip>=$7
-    AND long_load_trip>=$8
-    AND trip.status=$9
-    AND time_ini <= $10
-    AND time_ini >= $11
-    AND trip_date_ini <= $12
-    AND trip_date_ini >= $13
-    AND max_weight_trip >=$14
-    AND wide_load_trip >=$15
-    
-    `
+    const consulta = `SELECT trip.id,truck_id,trip.transport_id,driver_id,country_origin,country_destiny,city_origin,city_destiny,trip_date_ini,time_ini,time_end,trip_date_end,type_load_trip,cubic_meters_trip,max_weight_trip, long_load_trip,wide_load_trip,high_load_trip,trip.status,truck.name AS truck_name,country_patent,patent,maken,model,color,driver.name AS driver_name,last_name  AS driver_last_name,phone,dni,img from trip INNER JOIN  truck ON trip.truck_id = truck.id INNER JOIN driver ON trip.driver_id = driver.id `
     const result = await pool.query(consulta, values)
     return result.rows
   } catch (error) {
